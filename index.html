@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Ahorro de Energía Renovable en Colombia</title>
+  <link rel="stylesheet" href="ESTILOS/style.css">
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* Estilos básicos */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh; /* Asegura que el footer esté al final */
+    }
+
+    header {
+      background-color: #333;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      color: white;
+      font-size: 4rem; /* Título grande */
+      margin: 0;
+    }
+
+    main {
+      padding: 20px;
+      flex-grow: 1; /* Permite que el contenido ocupe el espacio disponible */
+    }
+
+    section {
+      margin-bottom: 40px;
+    }
+
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      position: relative;
+      width: 100%;
+    }
+
+    /* Gráfico de D3 */
+    #capacity-map {
+      margin: 20px 0;
+      width: 100%;
+      height: auto;
+    }
+
+    /* Gráfico de Chart.js */
+    canvas {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Estilos para dispositivos pequeños */
+    @media (max-width: 1024px) {
+      header h1 {
+        font-size: 3rem; /* Reducir tamaño del título en tabletas */
+      }
+
+      main {
+        padding: 15px;
+      }
+
+      footer {
+        padding: 5px;
+      }
+
+      section {
+        margin-bottom: 30px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.5rem; /* Título más pequeño en móviles */
+      }
+
+      main {
+        padding: 10px;
+      }
+
+      footer {
+        padding: 5px;
+      }
+
+      section {
+        margin-bottom: 20px;
+      }
+
+      canvas {
+        width: 100% !important;  /* Asegura que los gráficos se ajusten en dispositivos pequeños */
+      }
+    }
+
+    /* Estilo para gráficos responsivos */
+    @media (max-width: 480px) {
+      canvas {
+        width: 100% !important;  /* Asegura que el gráfico se ajuste al tamaño de la pantalla */
+      }
+
+      header h1 {
+        font-size: 2rem;  /* Reducir más el tamaño del título en pantallas muy pequeñas */
+      }
+
+      footer p {
+        font-size: 0.8rem; /* Reducir tamaño de fuente del footer en móviles */
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Energías Renovables</h1>
+  </header>
+
+  <main>
+    <section>
+      <h2>Proyectos en Colombia</h2>
+      <p>Conoce los proyectos más relevantes de energías renovables en Colombia.</p>
+      <div id="capacity-map"></div> <!-- Aquí se renderiza el gráfico de D3 -->
+    </section>
+
+    <section>
+      <h2>Ahorro de Energía Renovable</h2>
+      <p>Consulta el ahorro de energía que se ha logrado con energías renovables en los últimos años.</p>
+
+      <!-- Gráfico con Chart.js sobre Ahorro de Energía -->
+      <canvas id="energySavingsChart" width="400" height="200"></canvas>
+
+      <script>
+        const ctx = document.getElementById('energySavingsChart').getContext('2d');
+        new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: ['2018', '2019', '2020', '2021', '2022'],  // Años de análisis
+            datasets: [
+              {
+                label: 'Ahorro Energético Solar (MWh)',
+                data: [12000, 15000, 18000, 22000, 25000],  // Datos de ejemplo para energía solar
+                borderColor: '#ffb74d',
+                backgroundColor: 'rgba(255, 183, 77, 0.2)',
+                fill: true,
+                tension: 0.4
+              },
+              {
+                label: 'Ahorro Energético Eólica (MWh)',
+                data: [8000, 10000, 12000, 15000, 17000],  // Datos de ejemplo para energía eólica
+                borderColor: '#42a5f5',
+                backgroundColor: 'rgba(66, 165, 245, 0.2)',
+                fill: true,
+                tension: 0.4
+              },
+              {
+                label: 'Ahorro Energético Hidráulica (MWh)',
+                data: [15000, 17000, 19000, 23000, 26000],  // Datos de ejemplo para energía hidráulica
+                borderColor: '#66bb6a',
+                backgroundColor: 'rgba(102, 187, 106, 0.2)',
+                fill: true,
+                tension: 0.4
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            scales: {
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  callback: function(value) { return value + ' MWh'; }
+                }
+              }
+            }
+          }
+        });
+      </script>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Energías Renovables en Colombia</p>
+  </footer>
+
+  <script>
+    // El código del gráfico de barras con D3.js permanece igual.
+    const capacityData = [
+      { department: 'Atlántico', capacity: 481 },
+      { department: 'Bolívar', capacity: 34 },
+      { department: 'Sucre', capacity: 70 },
+      { department: 'Córdoba', capacity: 232 },
+      { department: 'Antioquia', capacity: 3 },
+      { department: 'Risaralda', capacity: 5 },
+      { department: 'Valle del Cauca', capacity: 110 },
+      { department: 'Tolima', capacity: 150 },
+      { department: 'Huila', capacity: 6 },
+      { department: 'La Guajira', capacity: 32 },
+      { department: 'Magdalena', capacity: 120 },
+      { department: 'Cesar', capacity: 307 },
+      { department: 'Norte de Santander', capacity: 64 },
+      { department: 'Caldas', capacity: 185 },
+      { department: 'Cundinamarca', capacity: 50 },
+      { department: 'Meta', capacity: 141 }
+    ];
+
+    // Modificación para hacer que el gráfico de D3.js sea responsive
+    const margin = { top: 20, right: 30, bottom: 70, left: 60 };
+    const width = window.innerWidth * 0.9 - margin.left - margin.right;  // El ancho se ajusta al 90% de la ventana
+    const height = 400 - margin.top - margin.bottom;
+
+    const svg = d3.select("#capacity-map")
+                  .append("svg")
+                  .attr("width", width + margin.left + margin.right)
+                  .attr("height", height + margin.top + margin.bottom)
+                  .append("g")
+                  .attr("transform", `translate(${margin.left},${margin.top})`);
+
+    const x = d3.scaleBand()
+                .domain(capacityData.map(d => d.department))
+                .range([0, width])
+                .padding(0.1);
+
+    const y = d3.scaleLinear()
+                .domain([0, d3.max(capacityData, d => d.capacity)])
+                .nice()
+                .range([height, 0]);
+
+    svg.append("g")
+       .selectAll(".bar")
+       .data(capacityData)
+       .enter().append("rect")
+       .attr("class", "bar")
+       .attr("x", d => x(d.department))
+       .attr("y", d => y(d.capacity))
+       .attr("height", d => height - y(d.capacity))
+       .attr("width", x.bandwidth())
+       .attr("fill", "#007bff");
+
+    svg.append("g")
+       .attr("transform", `translate(0,${height})`)
+       .call(d3.axisBottom(x))
+       .selectAll("text")
+       .attr("text-anchor", "end")
+       .attr("transform", "rotate(-45)");
+
+    svg.append("g")
+       .call(d3.axisLeft(y).ticks(10));
+
+    // Hacer que el gráfico de D3.js sea responsive al tamaño de la ventana
+    window.addEventListener('resize', () => {
+      const newWidth = window.innerWidth * 0.9 - margin.left - margin.right;
+      svg.attr("width", newWidth + margin.left + margin.right);
+      x.range([0, newWidth]).padding(0.1);
+      svg.selectAll(".bar")
+         .attr("x", d => x(d.department))
+         .attr("width", x.bandwidth());
+      svg.select("g.axisBottom")
+         .call(d3.axisBottom(x));
+    });
+  </script>
+</body>
+</html>
